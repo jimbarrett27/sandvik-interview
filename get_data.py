@@ -4,12 +4,10 @@ from pathlib import Path
 from tqdm import tqdm
 from multiprocessing import Pool
 
-
-DOWNLOAD_DIR = 'data/'
-DATA_URL = 'http://www.repository.voxforge1.org/downloads/SpeechCorpus/Trunk/Audio/Main/16kHz_16bit/'
+from constants import DATA_URL, DATA_DIR
 
 def download_file(filename):
-    with open(Path(DOWNLOAD_DIR) / filename, 'wb') as f:
+    with open(Path(DATA_DIR) / filename, 'wb') as f:
         f.write(get(DATA_URL + filename).content)
 
 def get_data():
