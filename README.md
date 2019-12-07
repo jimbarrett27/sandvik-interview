@@ -69,7 +69,7 @@ for convergence, which I then used with trial and error to choose the number of 
 The classification performance, following taking all of the intuitive choices in building the features and the model, is the
 following. With more time, I would certainly explore other ML models, and do hyperparameter searches on the decision tree.
 
-
+```
               precision    recall  f1-score   support
 
         Male       0.99      0.99      0.99     16004
@@ -78,3 +78,4 @@ following. With more time, I would certainly explore other ML models, and do hyp
     accuracy                           0.98     18943
    macro avg       0.95      0.96      0.96     18943
 weighted avg       0.98      0.98      0.98     18943
+```
