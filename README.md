@@ -43,7 +43,7 @@ Plotting these features for a handful of samples shows that our intuition is bro
 lower frequencies. It was surprising to me that (by eye), males seem to have frequencies fairly evenly represented across the human
 vocal range.
 
-![Power Spectral Density]('psd.png')
+![Power Spectral Density]('/psd.png')
 
 ## Data Cleaning 
 
