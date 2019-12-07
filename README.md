@@ -43,7 +43,7 @@ Plotting these features for a handful of samples shows that our intuition is bro
 lower frequencies. It was surprising to me that (by eye), males seem to have frequencies fairly evenly represented across the human
 vocal range.
 
-![Power Spectral Density]('/psd.png')
+![Power Spectral Density]('https://github.com/jimbarrett27/sandvik-interview/blob/master/psd.png')
 
 ## Data Cleaning 
 
@@ -56,11 +56,15 @@ there was little enough variety that i could clean these by hand, and throw away
 I tried a few different out of the box models from the `sklearn` Python library, but ultimately settled on
 the gradient boosted decision trees classifier as the most performant. I evaluated the models by randomly splitting
 the sample into a training and testing set of samples, and then simply 
-inpsected their `classification_report` on the performance of the model on the testing set 
+inpsected their `classification_report` on the performance of the model on the testing set .
 
 The `classification_report` is is a collection of single number metrics one can use to 
 evaluate models, including precision, recall and f1-score. Boosted decision trees were visibly more performant
 than any of the other methods, just by eyeballing the numbers.
+
+I used the `sklearn` out of the box boosted decision tree implementation, with some common sense alterations to the default 
+values for hyperparameters. I set the subsample parameter to 0.8 mainly so that I could get the out-of-bag error as a rough metric
+for convergence, which I then used with trial and error to choose the number of estimators. I chose to limit the depth of the trees to roughly the number of peaks I see in the PSDs. 
 
 The classification performance, following taking all of the intuitive choices in building the features and the model, is the
 following. With more time, I would certainly explore other ML models, and do hyperparameter searches on the decision tree.
