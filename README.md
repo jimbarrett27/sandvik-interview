@@ -21,8 +21,7 @@ The rough workflow of how to use the files in this repo is the following;
 * *extract_data.py* - Decompresses all of the raw data files
 * *extract_metadata.py* - Runs through all of the data directories, and assembles some metadata about them
 * *extract_features.py* - Contains the method that processes a wav file into a feature vector, and code for running this on all the raw data
-
-## Getting the Data
+* *model_training.ipynb* - Make some plots and train the model.
 
 ## Feature Engineering
 
@@ -37,13 +36,20 @@ a slightly richer data structure around for each recording; the Power Spectral D
 The PSD gives a representation of how much 'power per frequency' there is in the time series, and thus
 makes sense from an intuition sense. Plus if we smooth it enough, it can be fairly low dimensional.
 
-I ended up smoothing it down to representing the power in frequencies in the human vocal range using around 50 numbers,
+I ended up smoothing it down to representing the power in frequencies in the human vocal range using around 40 numbers,
 which is small enough to use with more or less any ML algorithm.
+
+Plotting these features for a handful of samples shows that our intuition is broadly correct, that females tend to have less power in
+lower frequencies. It was surprising to me that (by eye), males seem to have frequencies fairly evenly represented across the human
+vocal range.
+
+![Power Spectral Density]('psd.png')
 
 ## Data Cleaning 
 
 Before training the models, we had to clean up the labels a little bit. There was a bunch of different ways
-that gender was actually represented in the data.
+that gender was actually represented in the data (different languages, upper case/lower case, punctuation etc). Fortunately
+there was little enough variety that i could clean these by hand, and throw away any samples that don't have a clear gender.
 
 ## Results
 
@@ -56,12 +62,15 @@ The `classification_report` is is a collection of single number metrics one can 
 evaluate models, including precision, recall and f1-score. Boosted decision trees were visibly more performant
 than any of the other methods, just by eyeballing the numbers.
 
+The classification performance, following taking all of the intuitive choices in building the features and the model, is the
+following. With more time, I would certainly explore other ML models, and do hyperparameter searches on the decision tree.
+
 
               precision    recall  f1-score   support
 
-        Male       0.99      0.99      0.99     15999
-      Female       0.92      0.95      0.93      2944
+        Male       0.99      0.99      0.99     16004
+      Female       0.92      0.94      0.93      2939
 
     accuracy                           0.98     18943
-   macro avg       0.96      0.97      0.96     18943
+   macro avg       0.95      0.96      0.96     18943
 weighted avg       0.98      0.98      0.98     18943
